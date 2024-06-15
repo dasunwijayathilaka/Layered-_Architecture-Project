@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class CustomerDAOImpl implements CustomerDAO{
     @Override
 
+    /*
                                                           // Retrieves all customers from database, returns list.
     public ArrayList<CustomerDTO> getAllCustomer() throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
@@ -28,6 +29,24 @@ public class CustomerDAOImpl implements CustomerDAO{
 
         return allCustomers;
     }              //Fetches all customers from database and returns as a list.
+*/
+
+    public ArrayList<CustomerDTO> getAllCustomer() throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        Statement stm = connection.createStatement();
+        ResultSet rst = stm.executeQuery("SELECT * FROM Customer");
+
+        ArrayList<CustomerDTO> allCustomers = new ArrayList<>();
+
+        // Ensure that there is at least one row in the result set before attempting to access data.
+        while (rst.next()) {
+            CustomerDTO customerDTO = new CustomerDTO(rst.getString("id"), rst.getString("name"), rst.getString("address"));
+            allCustomers.add(customerDTO);
+        }
+
+        return allCustomers;
+    }
+
 
 
     @Override
@@ -90,7 +109,7 @@ public class CustomerDAOImpl implements CustomerDAO{
         Connection connection = DBConnection.getDbConnection().getConnection();
 
         if (!isExistCustomer(newValue + "")) {
-                       //   ("No customer found with ID: " + id)
+            //   ("No customer found with ID: " + id)
 
 
 
@@ -122,4 +141,4 @@ public class CustomerDAOImpl implements CustomerDAO{
         return customerIds;
     }
 }
-            //Loads all customer IDs from the database.
+//Loads all customer IDs from the database.
