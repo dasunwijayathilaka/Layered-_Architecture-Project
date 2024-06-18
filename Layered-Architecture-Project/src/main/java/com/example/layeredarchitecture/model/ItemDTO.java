@@ -22,6 +22,7 @@ public class ItemDTO implements Serializable {
     }
 
     public ItemDTO(String code) {
+        this.code = code;
     }
 
     public String getCode() {
